@@ -1,0 +1,20 @@
+.cw-slider-ui {
+	display: block;
+	width: 300px;
+	max-width: 90%;
+	height: 10px;
+	background: #CECECE;
+	border-radius: 4px;
+	position: relative;
+	margin: 10px 10px;
+}
+
+.cw-slider-ui .ui-slider-handle {
+	background: #149BDF;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	margin-top: -5px;
+	margin-left: -10px;
+}
