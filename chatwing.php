@@ -293,11 +293,12 @@ register_activation_hook(__FILE__, 'cw_plugin_activation');
  * Store encryption key to file
  */
 function cw_store_encryption_key($key) {
-	$content = sprintf("<?php define('CHATWING_ENCRYPT_KEY', '%s'); ?>", $key);
-
 	$dir = plugin_dir_path(__FILE__);
 
-	if ( !is_writeable($dir) ) return false;
+	if ( !is_writeable($dir) ) return false; // plugin directory not writable
+	if (file_exists($dir . 'key.php') ) return true; // key file exists
+
+	$content = sprintf("<?php define('CHATWING_ENCRYPT_KEY', '%s'); ?>", $key);
 
 	$fp = fopen($dir . 'key.php', 'w');
 	fputs($fp, $content);
