@@ -35,7 +35,8 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-require_once('key.php');
+// load encrypt key if it exists
+@include_once('key.php');
 
 define('CHATWING_ENVIRONMENT', 'development'); // production
 if ( !defined('CHATWING_ENCRYPT_KEY') ) {
@@ -277,7 +278,33 @@ function cw_settings_page() {
 	<?php
 }
 
+/**
+ * Run when the plugin is activated
+ */
+function cw_plugin_activation() {
+	$random_key = wp_generate_password();
+	cw_store_encryption_key($random_key);
+}
+register_activation_hook(__FILE__, 'cw_plugin_activation');
+
 /* FUNCTIONS */
+
+/**
+ * Store encryption key to file
+ */
+function cw_store_encryption_key($key) {
+	$content = sprintf("<?php define('CHATWING_ENCRYPT_KEY', '%s'); ?>", $key);
+
+	$dir = plugin_dir_path(__FILE__);
+
+	if ( !is_writeable($dir) ) return false;
+
+	$fp = fopen($dir . 'key.php', 'w');
+	fputs($fp, $content);
+	fclose($fp);
+
+	return true;
+}
 
 /**
  * Get ChatWing API instance
