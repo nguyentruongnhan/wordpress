@@ -1,0 +1,3 @@
+<?php
+
+define('CHATWING_ENCRYPT_KEY', 'CHATWING2014');

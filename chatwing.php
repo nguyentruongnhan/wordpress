@@ -35,8 +35,12 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
+require_once('key.php');
+
 define('CHATWING_ENVIRONMENT', 'development'); // production
-define('CHATWING_ENCRYPT_KEY', 'CHATWING2014');
+if ( !defined('CHATWING_ENCRYPT_KEY') ) {
+	define('CHATWING_ENCRYPT_KEY', 'CHATWING2014');
+}
 if ( defined('CHATWING_ENVIRONMENT') && CHATWING_ENVIRONMENT == 'developement') {
 	define('CHATWING_DOMAIN', 'chatwing.com');
 } else {
@@ -233,7 +237,7 @@ function cw_settings_page() {
 									<?php if ( !cw_check_valid_token() ) : ?>
 										<input type="text" class="code regular-text" name="cw_token" value="" />
 									<?php else: ?>
-										<input type="submit" class="button-secondary" name="delete-token" value="<?php _e('Delete token') ?>" />
+										<input type="submit" class="button-secondary" name="delete-token" onclick="return confirm('<?php _e('Are you sure to delete this token?') ?>');" value="<?php _e('Delete token') ?>" />
 									<?php endif; ?>
 								</td>
 							</tr>
