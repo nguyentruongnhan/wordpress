@@ -37,7 +37,7 @@ if ( !function_exists( 'add_action' ) ) {
 
 // load encrypt key if it exists
 @include_once('key.php');
-
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 define('CHATWING_ENVIRONMENT', 'development'); // production
 if ( !defined('CHATWING_ENCRYPT_KEY') ) {
 	define('CHATWING_ENCRYPT_KEY', 'CHATWING2014');
@@ -51,6 +51,22 @@ if ( defined('CHATWING_ENVIRONMENT') && CHATWING_ENVIRONMENT == 'developement') 
 require_once('lib/class.chatwing.php');
 require_once('lib/class.encryption.php');
 require_once('chatwing-widgets.php');
+
+/**
+ * Chatwing SDK autoloader
+ * @param $className
+ */
+function cw_autoload($className)
+{
+  $cwSDKPath = WP_PLUGIN_DIR . DS . 'wpchatwing' . DS . 'sdk' . DS . 'src';
+  $className = ltrim($className, '\\');
+  // build file path
+  $filePath = $cwSDKPath . DS . str_replace('\\', '/', $className) . ".php";
+  if (file_exists($filePath)) {
+    require_once($filePath);
+  }
+}
+spl_autoload_register('cw_autoload');
 
 /**
  * Init
@@ -310,13 +326,12 @@ function cw_store_encryption_key($key) {
 /**
  * Get ChatWing API instance
  *
- * @return ChatWing
+ * @return \Chatwing\Api
  */
 function cw_get_api_instance() {
-
 	$token = cw_get_token();
-	$cw_api = ChatWing::getInstance($token);
-	$cw_api->setEnvironment(CHATWING_ENVIRONMENT);
+  $cw_api = \Chatwing\Api::getInstance($token, \Chatwing\Api::CLIENT_WORDPRESS);
+  $cw_api->setEnv(\Chatwing\Api::ENV_DEVELOPMENT);
 
 	return $cw_api;
 }
@@ -329,28 +344,29 @@ function cw_get_api_instance() {
  */
 function cw_get_chatbox($name = '') {
 	$cw_api = cw_get_api_instance();
-	$chatboxes = $cw_api->list();
+	$chatboxes = $cw_api->call('user/chatbox/list');
 
 	if ( !empty($name) ) {
 		$_chatbox = false;
-		foreach ((array)$chatboxes as $chatbox) {
+
+		foreach ($chatboxes['data'] as $chatbox) {
 			if ( $chatbox['id'] == $name ) $_chatbox = $chatbox;
 			elseif ( $chatbox['key'] == $name ) $_chatbox = $chatbox;
 			elseif ( $chatbox['alias'] == $name ) $_chatbox = $chatbox;
 			elseif ( $chatbox['name'] == $name ) $_chatbox = $chatbox;
 
-			if ( $_chatbox ) break;
+			if ( $_chatbox ) {
+        return $_chatbox;
+      }
 		}
-		$chatboxes = $_chatbox;
-		unset($_chatbox);
 	}
 
-	return $chatboxes;
+	return $chatboxes['data'];
 }
 
 /**
  * Simple template render engine
- * 
+ *
  * @param string $template
  * @param array $vars
  * @return string
