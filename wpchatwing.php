@@ -11,7 +11,7 @@ Plugin URI: http://chatwing.com/
 Description: ChatWing plugin for Wordpress
 Version: 1.0
 Author: ChatWing
-Author URI: http://chatwing.com/wordpress-plugin/
+Author URI: http://chatwing.com
 License: MIT
 Text Domain: wpchatwing
 */
