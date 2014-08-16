@@ -1,1 +1,0 @@
-<?php define('CW_ENCRYPT_KEY', 'aiU!0J8ybou(uy4g'); ?>
