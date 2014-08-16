@@ -1,0 +1,89 @@
+[
+    {
+        "name": "pimple/pimple",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fabpot/Pimple.git",
+            "reference": "876bf0899d01feacd2a2e83f04641e51350099ef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fabpot/Pimple/zipball/876bf0899d01feacd2a2e83f04641e51350099ef",
+            "reference": "876bf0899d01feacd2a2e83f04641e51350099ef",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-07-24 09:48:15",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Pimple": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+        "homepage": "http://pimple.sensiolabs.org",
+        "keywords": [
+            "container",
+            "dependency injection"
+        ]
+    },
+    {
+        "name": "chatwing/api",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:tridungpham/chatwing-api-library.git",
+            "reference": "46822594395763537e0069cdd9a028242227c26f"
+        },
+        "require": {
+            "pimple/pimple": "~3.0"
+        },
+        "time": "2014-08-15 07:29:17",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Chatwing": "src/"
+            },
+            "files": [
+                "src/Chatwing/start.php"
+            ]
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Tri Dung Pham",
+                "email": "tridungpham.89@gmail.com"
+            }
+        ],
+        "description": "PHP Library used to interact with Chatwing API",
+        "homepage": "http://chatwing.com",
+        "keywords": [
+            "API",
+            "Chatwing"
+        ]
+    }
+]

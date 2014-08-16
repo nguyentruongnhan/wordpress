@@ -1,0 +1,14 @@
+{
+    "repositories": [
+        {
+            "type":"git",
+            "url": "git@github.com:tridungpham/chatwing-api-library.git"
+        }
+    ],
+    "config":{
+        "vendor-dir":"vendor"
+    },
+    "require": {
+        "chatwing/api": "dev-master"
+    }
+}

@@ -48,7 +48,7 @@ if ( defined('CHATWING_ENVIRONMENT') && CHATWING_ENVIRONMENT == 'developement') 
 	define('CHATWING_DOMAIN', 'staging.chatwing.com');
 }
 
-require_once('lib/class.chatwing.php');
+//require_once('lib/class.chatwing.php');
 require_once('lib/class.encryption.php');
 require_once('chatwing-widgets.php');
 
@@ -62,11 +62,12 @@ function cw_autoload($className)
   $className = ltrim($className, '\\');
   // build file path
   $filePath = $cwSDKPath . DS . str_replace('\\', '/', $className) . ".php";
+
   if (file_exists($filePath)) {
     require_once($filePath);
   }
 }
-spl_autoload_register('cw_autoload');
+spl_autoload_register( 'wpcw_autoload' );
 
 /**
  * Init
@@ -344,7 +345,11 @@ function cw_get_api_instance() {
  */
 function cw_get_chatbox($name = '') {
 	$cw_api = cw_get_api_instance();
-	$chatboxes = $cw_api->call('user/chatbox/list');
+	try {
+		$chatboxes = $cw_api->call('user/chatbox/list');
+	} catch (Exception $e) {
+		
+	}
 
 	if ( !empty($name) ) {
 		$_chatbox = false;

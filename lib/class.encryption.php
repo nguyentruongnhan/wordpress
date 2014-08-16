@@ -2,10 +2,21 @@
 
 class Encryption {
 
-	var $skey = "YOURSECRETKEY";
+	private $skey = "YOURSECRETKEY";
+    private static $instance = null;
 
 	public function __construct($key = '') {
 		if ( $key ) $this->skey = $key;
+
+        self::$instance = $this;
+	}
+
+	public static function get_instance($key = '')
+	{
+		if(is_null(self::$instance)) {
+			self::$instance = new self($key);
+		}
+		return self::$instance;
 	}
 
 	public function set_key($key) {
