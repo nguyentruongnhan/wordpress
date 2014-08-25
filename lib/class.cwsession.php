@@ -4,6 +4,7 @@
  * @author  chatwing
  * @package Chatwing_Wordpress
  */
+
 class CW_Session
 {
     static $instance = null;

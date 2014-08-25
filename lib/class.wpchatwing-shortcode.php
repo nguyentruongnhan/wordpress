@@ -13,9 +13,12 @@ class WPChatwing_Shortcode {
         if ( empty( $options['alias'] ) ) {
             return '';
         }
+        
         global $current_user, $cw_container;
 
         $extraData = array();
+        $chatbox = $cw_container['box'];
+        $chatbox->setAlias($options['alias']);
 
         if ( $options['custom_login_enable'] && $options['custom_login_secret'] && $current_user->ID) {
             // user logged in . Continue processing
@@ -23,14 +26,13 @@ class WPChatwing_Shortcode {
                 'id' => $current_user->ID,
                 'name' => $current_user->display_name,
                 'expire' => round(microtime(true) * 1000) + 60*60*1000,
-                'avatar' => get_avatar_url($current_user->ID, 100)
+                'avatar' => get_avatar_url($current_user->ID, 100),
             );
             $extraData['custom_session'] = $preparedData;
+            $chatbox->setSecret($options['custom_login_secret']);
         }
-        $chatbox = $cw_container['box'];
-        $chatbox->setAlias($options['alias']);
+        
         $chatbox->setParams($extraData);
-//        $query = http_build_query($extraData);
 
         // render the iframe code here
         $chatbox_link = $chatbox->getChatboxUrl() ;
