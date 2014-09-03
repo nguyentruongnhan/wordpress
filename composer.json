@@ -2,7 +2,7 @@
     "repositories": [
         {
             "type":"git",
-            "url": "git@github.com:tridungpham/chatwing-api-library.git"
+            "url": "git@github.com:chatwing/php-sdk.git"
         }
     ],
     "config":{

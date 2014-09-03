@@ -8,7 +8,7 @@ $cw_container = new \Pimple\Container();
 
 $cw_container['api'] = function ( \Pimple\Container $c ) {
     $api = new \Chatwing\Api( CW_CLIENT_ID );
-    $api->setEnv( CW_DEBUG ? CW_ENV_DEVELOPMENT : CW_ENV_PRODUCTION );
+    $api->setEnv( CW_DEBUG && defined('CW_USE_STAGING') && CW_USE_STAGING ? CW_ENV_DEVELOPMENT : CW_ENV_PRODUCTION );
     if ( isset( $c['cw_token'] ) ) {
         $api->setAccessToken( $c['cw_token'] );
     }
