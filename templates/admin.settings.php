@@ -47,7 +47,7 @@
                     isDelete = true;
                     message = '<?php _e("Leaving the input empty will delete current token key. After that you will have to insert new token in order to continue using this plugin. Are you sure to do this action ?", CW_TEXTDOMAIN); ?>';
                 } else {
-                    message = '<?php _e( "Are you sure to change to new token ? ", CW_TEXTDOMAIN ) ?>';
+                    message = '<?php _e( "Are you sure to change to new access token ? ", CW_TEXTDOMAIN ) ?>';
                 }
 
                 if (confirm(message)) {
@@ -69,7 +69,7 @@
                     <th><label for="new_token"><?php _e( 'New token', 'chatwing' ) ?></label></th>
                     <td>
                         <input type="text" class="code regular-text" name="cw_token" value="" id="new_token" />
-                        <input type="submit" class="button-secondary" name="deletetoken" onclick="return updateToken();" value="<?php _e( 'Update token' ) ?>" />
+                        <input type="submit" class="button-secondary" name="deletetoken" onclick="return updateToken();" value="<?php _e( 'Update access token' ) ?>" />
                     </td>
                 </tr>                
             </table>            

@@ -24,6 +24,8 @@ class WPChatwing {
         }
 
         self::$instance = $this;
+
+        \Chatwing\Application::bind( 'client_id', CW_CLIENT_ID, 'chatwing' );
     }
 
     public static function get_instance() {
@@ -56,10 +58,9 @@ class WPChatwing {
      */
     public function get_chatboxes() {
         if ( $this->has_access_key() ) {
-            global $cw_container;
             try {
-                $cw_container['api']->setAccessToken( $this->get_access_key() );
-                $response = $cw_container['api']->call( 'user/chatbox/list' );
+                \Chatwing\Application::get( 'api', 'chatwing' )->setAccessToken( $this->get_access_key() );
+                $response = \Chatwing\Application::get( 'api', 'chatwing' )->call( 'user/chatbox/list' );
 
                 if ( $response['success'] ) {
                     return $response['data'];
@@ -125,7 +126,7 @@ class WPChatwing {
                             $message = __( 'Cannot update token!', CW_TEXTDOMAIN );
                         }
                     } else {
-                        $message = __( 'Invalid Chatwing Token', CW_TEXTDOMAIN );
+                        $message = __( 'Invalid Chatwing Access Token', CW_TEXTDOMAIN );
                     }
 
                     break;

@@ -3,7 +3,7 @@
     $message = CW_Session::getInstance()->get( 'message' );
     if (! $message) {
         $message = array(
-            'content' => __( 'Please input your ChatWing token first!', CW_TEXTDOMAIN ),
+            'content' => __( 'Please input your ChatWing Access Token first!', CW_TEXTDOMAIN ),
             'type' => 'error'
         );
     }
@@ -28,7 +28,7 @@
                     <h3><?php _e( 'Plugin Configuration', CW_TEXTDOMAIN ) ?></h3>
                     <table class="form-table">
                         <tr>
-                            <th><label for="token"><?php _e( 'Token', CW_TEXTDOMAIN ) ?></label></th>
+                            <th><label for="token"><?php _e( 'Access Token', CW_TEXTDOMAIN ) ?></label></th>
                             <td>
                                 <input type="text" class="code regular-text" name="cw_token" value="" id="token" />
                             </td>

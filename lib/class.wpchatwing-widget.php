@@ -49,7 +49,7 @@ class WPChatwing_Widget extends WP_Widget {
             </label>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'width' ) ?>">
+            <label for="<?php echo $thishis->get_field_id( 'width' ) ?>">
                 <?php _e( 'Width', CW_TEXTDOMAIN ) ?>
                 <input type="text" class="widefat" name="<?php echo $this->get_field_name( 'width' ) ?>" id="<?php echo $this->get_field_id( 'width' ); ?>" value="<?php echo $instance['width'] ?>" />
             </label>
@@ -92,14 +92,13 @@ class WPChatwing_Widget extends WP_Widget {
     }
 
     public function widget( $args, $instance ) {
-        $wps = new WPChatwing_Shortcode();
         $cw_options = get_option('__cw_options', array());
 
         echo $args['before_widget'];
         if ( isset( $instance['title'] ) ) {
             echo $args['before_title'] . $instance['title'] . $args['after_title'];
         }
-        echo $wps->render( array(
+        echo WPChatwing_Shortcode::render( array(
             'alias' => $instance['chatbox_view'],
             'width' =>  isset($instance['width']) ? $instance['width'] : $cw_options['width'],
             'height' => isset($instance['height']) ? $instance['height'] : $cw_options['height'],

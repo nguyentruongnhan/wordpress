@@ -4,22 +4,10 @@
  * @package Chatwing_SDK
  */
 
-$cw_container = new \Pimple\Container();
+if(!defined('CW_PLG_VERSION')) {
+    wp_die('Well....');
+}
 
-$cw_container['api'] = function ( \Pimple\Container $c ) {
-    $api = new \Chatwing\Api( CW_CLIENT_ID );
-    $api->setEnv( CW_DEBUG && defined('CW_USE_STAGING') && CW_USE_STAGING ? CW_ENV_DEVELOPMENT : CW_ENV_PRODUCTION );
-    if ( isset( $c['cw_token'] ) ) {
-        $api->setAccessToken( $c['cw_token'] );
-    }
+require_once dirname(__FILE__) . DS . 'includes' . DS . 'src' . DS . 'Chatwing' . DS . 'autoloader.php';
+require_once dirname(__FILE__) . DS . 'includes' . DS . 'src' . DS . 'Chatwing' . DS . 'start.php';
 
-    return $api;
-};
-
-
-$cw_container['box'] = $cw_container->factory( function ( \Pimple\Container $c ) {
-    return new \Chatwing\Chatbox( $c['api'] );
-} );
-
-// register the container to global variables table
-$GLOBALS['cw_container'] = $cw_container;

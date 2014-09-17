@@ -1,7 +1,7 @@
 <?php
 
 class WPChatwing_Shortcode {
-    public function render( $atts ) {
+    public static function render( $atts ) {
         $options = shortcode_atts( array(
             'alias'               => '',
             'width'               => 640,
@@ -14,10 +14,10 @@ class WPChatwing_Shortcode {
             return '';
         }
         
-        global $current_user, $cw_container;
+        global $current_user;
 
         $extraData = array();
-        $chatbox = $cw_container['box'];
+        $chatbox = \Chatwing\Application::get('chatbox', 'chatwing');
         $chatbox->setAlias($options['alias']);
 
         if ( $options['custom_login_enable'] && $options['custom_login_secret'] && $current_user->ID) {
